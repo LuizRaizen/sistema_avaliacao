@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'core/css/fazer-avaliacao.css' %}?v=1.0.0">
+{% endblock styles %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h2>Criar conta</h2>
+    <form class="evaluation-form" method="POST">
+        {% csrf_token %}
+        
+        {{ form.username.errors }}
+        {{ form.username }}
+
+        {{ form.email.errors }}
+        {{ form.email }}
+
+        {{ form.first_name.errors }}
+        {{ form.first_name }}
+
+        {{ form.last_name.errors }}
+        {{ form.last_name }}
+
+        {{ form.password1.errors }}
+        {{ form.password1 }}
+
+        {{ form.password2.errors }}
+        {{ form.password2 }}
+
+        <button type="submit">Entrar</button>
+        <p class="auth-alt">Já tem conta? <a href="{% url 'core:login' %}">Entre</a></p>
+    </form>
+    <a href="{% url '#' %}">Eu ainda não tenho uma conta</a>
+</div>
+{% endblock content %}
