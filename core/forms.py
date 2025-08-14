@@ -30,7 +30,7 @@ class CustomUserCreationForm(UserCreationForm):
         for name, f in self.fields.items():
             f.help_text = ""
             f.widget.attrs.update({
-                "class": "form-input",
+                "class": "form-control",
                 "placeholder": field_cfg.get(name, {}).get("ph", ""),
                 "autocomplete": field_cfg.get(name, {}).get("autocomplete", "off"),
                 "type": field_cfg.get(name, {}).get("type", f.widget.input_type if hasattr(f.widget, "input_type") else "text")
