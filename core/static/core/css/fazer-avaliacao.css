@@ -9,6 +9,7 @@
 .form-wrapper {
   width: 400px;                 /* Mantém o layout atual no desktop              */
   margin-top: 20px;
+  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
 }
