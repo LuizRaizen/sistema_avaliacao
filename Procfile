@@ -1,1 +1,1 @@
-web: gunicorn sistema_avaliacao.wsgi
+web: gunicorn sistema_avaliacao.wsgi:application --bind 0.0.0.0:$PORT
