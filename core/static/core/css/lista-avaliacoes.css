@@ -1,0 +1,114 @@
+/* =============================================================================
+   LISTA DE AVALIAÇÕES - Responsivo e Acessível
+   Objetivo:
+     - Manter o layout no desktop como está.
+     - Adaptar para telas menores sem alterar cores, bordas ou hierarquia.
+   ============================================================================= */
+
+/* ---------------------- Container geral da lista ---------------------------- */
+.evaluations-list {
+  margin-top: 20px;
+}
+
+/* ----------------------- Card individual de avaliação ----------------------- */
+.evaluation-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+
+  /* Ajuste na sombra para sintaxe correta */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
+  background-color: #555555;
+  border-radius: 12px;
+}
+
+/* ---------------------- Cabeçalho com nome e nota --------------------------- */
+.evaluation-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px; /* espaço fixo entre nome e nota */
+}
+
+.evaluation-info .evaluation-name {
+  margin-right: 10px;
+}
+
+/* Nome do avaliador */
+.evaluation-name {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Nota da avaliação (badge) */
+.evaluation-note {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 10px;
+  background-color: #ff6738;
+  border-radius: 25px;
+}
+
+/* ---------------------- Texto do comentário -------------------------------- */
+.evaluation-comment {
+  font-size: 14px;
+  color: #ececec;
+}
+
+/* Data da avaliação */
+.evaluation-date {
+  font-size: 12px;
+  color: #cecece;
+}
+
+/* =============================================================================
+   Responsividade
+   ============================================================================= */
+
+/* Até 600px: ajusta padding e tipografia para não apertar */
+@media (max-width: 600px) {
+  .evaluation-card {
+    padding: 10px 14px;
+  }
+
+  .evaluation-name {
+    font-size: 16px; /* leve redução para caber melhor */
+  }
+
+  .evaluation-note {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+
+  .evaluation-comment {
+    font-size: 13px;
+  }
+}
+
+/* Até 480px: empilha nome e nota verticalmente */
+@media (max-width: 480px) {
+  .evaluation-info {
+    flex-direction: column;
+    align-items: flex-start; /* nome e nota à esquerda */
+    gap: 6px;
+  }
+
+  /* Aumenta área de toque para mobile */
+  .evaluation-note {
+    padding: 4px 10px;
+  }
+}
+
+/* Até 360px: microajustes de tipografia */
+@media (max-width: 360px) {
+  .evaluation-name {
+    font-size: 15px;
+  }
+
+  .evaluation-comment {
+    font-size: 12px;
+  }
+}

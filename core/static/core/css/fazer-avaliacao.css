@@ -1,0 +1,100 @@
+/* =============================================================================
+   Formulário responsivo (wrapper, campos e botão)
+   Objetivo:
+     - Manter o layout atual no desktop (largura fixa 400px).
+     - Tornar usável em telas pequenas, evitando corte lateral.
+   ============================================================================= */
+
+/* --------------------------- Wrapper do formulário -------------------------- */
+.form-wrapper {
+  width: 400px;                 /* Mantém o layout atual no desktop              */
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Título do formulário */
+.form-wrapper h2 {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Layout da tag <form> */
+.evaluation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Campos (inputs/textarea/select) */
+.form-control {
+  background-color: #1b1b1b;
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  color: #fff;
+  outline: none;                 /* foco visual é tratado abaixo em :focus-visible */
+}
+
+/* Botão de envio */
+.form-wrapper button {
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  background-color: #43bc30;
+  color: #fff;
+  font-weight: 600;
+}
+
+.form-wrapper button:hover {
+  background-color: #2e8321;
+  cursor: pointer;
+}
+
+/* --------------------- Acessibilidade/Interação sem mudar o visual --------- */
+.form-control:focus-visible,
+.form-wrapper button:focus-visible {
+  outline: 2px solid #72cf4f;   /* contraste adequado e consistente com o tema */
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================================================================
+   Breakpoints responsivos
+   - Não alteram a aparência no desktop; apenas melhoram o uso em telas menores.
+   ============================================================================= */
+
+/* Telas até 480px: formulário fica fluido e com respiro lateral */
+@media (max-width: 480px) {
+  .form-wrapper {
+    width: 100%;                 /* deixa fluir na largura da tela */
+    max-width: 400px;            /* ainda respeita o design desktop como teto */
+    padding-left: 16px;          /* evita texto colar na borda */
+    padding-right: 16px;
+  }
+
+  /* Aumenta área de toque sem mudar cores/bordas */
+  .form-control {
+    padding: 12px;               /* +2px de conforto no mobile */
+  }
+
+  .form-wrapper button {
+    padding: 12px;               /* mesmo conforto do campo */
+  }
+}
+
+/* Telas muito pequenas (≤ 360px): microajuste para evitar quebras */
+@media (max-width: 360px) {
+  .form-wrapper h2 {
+    margin-bottom: 20px;         /* reduz levemente a altura do cabeçalho */
+    font-size: 1.05rem;          /* ajuste fino sem alterar identidade */
+  }
+}

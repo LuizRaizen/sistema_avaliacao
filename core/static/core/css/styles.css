@@ -1,0 +1,226 @@
+/* =============================================================================
+   Base responsivo do site (header/nav/main/footer)
+   Objetivo:
+     - Manter o layout e o visual atuais no desktop (≥ 861px).
+     - Tornar a experiência fluida e amigável em dispositivos móveis.
+   Notas:
+     - NÃO altera o layout no desktop: mesmas cores, fontes e espaçamentos.
+     - Ajustes só entram em breakpoints menores para melhorar usabilidade.
+   ============================================================================= */
+
+/* ------------------------- Reset/Normalização leve -------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Evita “estouro” de largura em elementos com padding  */
+}
+
+/* Melhora legibilidade em telas e evita zoom forçado em iOS */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ------------------------------- Body / Página ------------------------------ */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #333; /* Mantido do layout original */
+  color: #fff;
+}
+
+/* ------------------------------- Container --------------------------------- */
+/* Desktop: mantemos exatamente 860px de largura visual */
+.container {
+  width: 860px;        /* Mantém o layout original no desktop             */
+  margin: 0 auto;      /* Centraliza                                        */
+  /* Responsivo sem alterar o desktop:
+     - em telas pequenas, a largura passa a ser fluida usando max-width (ver @media)
+     - adicionamos um padding lateral mínimo para evitar texto colado na borda */
+}
+
+/* ================================ HEADER =================================== */
+header {
+  padding: 10px 20px;
+  border-bottom: 1px solid #444444;
+}
+
+header h1 {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  text-align: center;
+  color: #72cf4f;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;   /* Melhor alinhamento vertical em alturas pequenas  */
+  gap: 12px;             /* Pequeno gap para quando itens quebrarem linha    */
+}
+
+/* Lista de navegação horizontal (desktop) */
+header nav ul {
+  list-style: none;      /* remove bullets sem alterar layout                */
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  display: inline-block;
+  margin-right: 32px;
+}
+
+header nav ul li:last-child {
+  margin-right: 0;       /* cuidado para não “empurrar” nav desnecessário    */
+}
+
+/* Estilo base dos links do nav (mantido) */
+header nav a,
+header nav ul li a {
+  font-weight: 600;
+  text-decoration: none;
+  color: #dbdbdb;
+}
+
+/* Link do usuário: ícone + texto lado a lado */
+header nav .user-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #dbdbdb;
+  /* Aumenta área de toque em mobile via @media sem mudar no desktop */
+}
+
+/* CÍRCULO somente no ícone */
+header nav .user-link i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #555555;
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Remove estilos antigos do <a> inteiro (mantido) */
+header nav > a {
+  background: none;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  padding: 0;
+  gap: 0;
+}
+
+/* ================================ MAIN ===================================== */
+main {
+  flex: 1;
+}
+
+/* ================================ FOOTER =================================== */
+footer {
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #444444;
+}
+
+/* =============================================================================
+   Acessibilidade e Interação (sem alterar visual):
+   - Foco visível para teclado
+   - Respeito a usuários com “reduzir animações”
+   ============================================================================= */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #72cf4f;   /* cor do título para manter identidade */
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================================================================
+   Breakpoints responsivos
+   - Mantemos o layout desktop intocado (≥ 861px).
+   - Abaixo disso, ajustamos para caber bem na tela.
+   ============================================================================= */
+
+/* ---------- Tablets e telas médias (≤ 860px) ---------- */
+@media (max-width: 860px) {
+  /* Container passa a ser fluido, sem alterar desktop */
+  .container {
+    width: 100%;
+    max-width: 860px;      /* ainda limita próximo ao visual original */
+    padding-left: 16px;
+    padding-right: 16px;   /* respirando nas bordas em telas menores  */
+  }
+
+  /* Header: permite quebra de linha elegante */
+  header nav {
+    flex-wrap: wrap;       /* itens podem ir para segunda linha se preciso */
+    row-gap: 8px;
+  }
+
+  /* Menus: reduzem espaçamento para caber melhor */
+  header nav ul li {
+    margin-right: 20px;
+  }
+}
+
+/* ---------- Smartphones (≤ 600px) ---------- */
+@media (max-width: 600px) {
+  /* Títulos: reduzem um pouco o espaço vertical sem mudar cor/estilo */
+  header h1 {
+    margin-top: 16px;
+    margin-bottom: 28px;   /* antes: 50px — melhora o “first view” no mobile */
+    font-size: 1.25rem;    /* ajuste leve de tipografia para caber melhor     */
+  }
+
+  /* Navegação: vira lista “em linha quebrável” e com toques confortáveis */
+  header nav {
+    justify-content: center;  /* centraliza o conjunto para ficar harmônico */
+    gap: 10px;
+  }
+
+  header nav ul {
+    display: flex;            /* flex em vez de inline-block para quebrar bem */
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 14px;
+    row-gap: 6px;
+  }
+
+  header nav ul li {
+    margin-right: 0;          /* gap do flex já cuida do espaçamento */
+  }
+
+  /* Aumenta área de toque do link do usuário, mantendo o visual */
+  header nav .user-link {
+    padding: 6px 8px;         /* área clicável maior, sem mudar cores */
+    border-radius: 8px;
+  }
+
+  /* Footer: um pouco menos alto em telas pequenas */
+  footer {
+    padding: 16px 0;
+  }
+}
+
+/* ---------- Telas muito pequenas (≤ 360px) ---------- */
+@media (max-width: 360px) {
+  header nav .user-link span {
+    font-size: 0.95rem;        /* evita quebra agressiva no texto */
+  }
+}
