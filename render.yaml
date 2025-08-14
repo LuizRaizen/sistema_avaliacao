@@ -3,12 +3,36 @@ services:
     name: sistema-avaliacao
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
-    startCommand: "gunicorn sistema_avaliacao.wsgi"
+    autoDeploy: true
+
+    # Build: instala dependências
+    buildCommand: pip install -r requirements.txt
+
+    # Após build: migra e coleta estáticos (necessário p/ WhiteNoise Manifest)
+    postDeployCommand: |
+      python manage.py migrate --noinput
+      python manage.py collectstatic --noinput
+
+    # Start: usa Procfile ou declare aqui (ambos ok; manter coerentes)
+    startCommand: >
+      gunicorn sistema_avaliacao.wsgi:application --bind 0.0.0.0:$PORT
+
     envVars:
+      # Defina este valor no painel do Render (não commite)
+      - key: SECRET_KEY
+        sync: false
+
+      # True só durante depuração inicial
       - key: DEBUG
         value: "False"
-      - key: SECRET_KEY
-        generateValue: true
-      - key: ALLOWED_HOSTS
-        value: "sistema-avaliacao.onrender.com"
+
+      # Opcional: se usar Postgres do Render, ele injeta DATABASE_URL automaticamente;
+      # se quiser forçar local/SQLite, não declare.
+      # - key: DATABASE_URL
+      #   sync: false
+
+      # Render injeta RENDER_EXTERNAL_HOSTNAME automaticamente — seu settings já usa.
+
+    healthCheckPath: /
+    # Opcional: aumentar timeout caso o primeiro boot esteja lento
+    # healthCheckTimeout: 100
