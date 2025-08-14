@@ -30,7 +30,7 @@ class FazerAvaliacaoView(ViewProtegida, CreateView):
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    template_name = "registration/signup.html"
+    template_name = "signup.html"
     success_url = reverse_lazy("core:lista_avaliacoes")  # ajuste se quiser
 
     # loga o usuário após cadastrar
