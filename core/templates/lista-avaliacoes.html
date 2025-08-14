@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static  'css/lista-avaliacoes.css' %}?v=1.0.0">
+{% endblock styles %}
+
+{% block content %}
+<div class="evaluations-list">
+  {% for avaliacao in avaliacoes %}
+  <div class="evaluation-card">
+    <div class="evaluation-info">
+      <div class="info-wrapper">
+        <span class="evaluation-name">{{ avaliacao.nome }}</span>
+        <span class="evaluation-note">{{ avaliacao.nota }}/10</span>
+      </div>
+      <span class="evaluation-date">{{ avaliacao.criado_em }}</span>
+    </div>
+
+    <span class="evaluation-comment">"{{ avaliacao.comentario }}"</span>
+  </div>
+  {% empty %}
+  <p>Nenhuma avaliação ainda foi feita.</p>
+  {% endfor %}
+</div>
+{% endblock content %}

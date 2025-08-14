@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/fazer-avaliacao.css' %}?v=1.0.0">
+{% endblock styles %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h2>Fazer nova avaliação</h2>
+    <form class="evaluation-form" method="POST">
+        {% csrf_token %}
+
+        {{ form.nome.errors }}
+        {{ form.nome }}
+
+        {{ form.nota.errors }}
+        {{ form.nota }}
+
+        {{ form.comentario.errors }}
+        {{ form.comentario }}
+        
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+{% endblock content %}

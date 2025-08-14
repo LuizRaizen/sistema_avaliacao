@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=devide-width, initial-scale=1.0">
+    <title>Sistema de Avaliação</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.0.0">
+    {% block styles %}{% endblock styles %}
+</head>
+
+<body>
+    <header class="container">
+        <h1>Sistema de Avaliação</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'core:lista_avaliacoes' %}">Lista de Avaliações</a></li>
+                <li><a href="{% url 'core:fazer_avaliacao' %}">Fazer Avaliação</a></li>
+            </ul>
+
+            {% if request.user.is_authenticated %}
+            <form action="{% url 'core:logout' %}?next={% url 'core:lista_avaliacoes' %}"
+                    method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="user-link" style="background:none;border:0;cursor:pointer;">
+                <i class="ph ph-user"></i>
+                <span>Olá, {{ request.user }}. Sair</span>
+                </button>
+            </form>
+            {% else %}
+            <a href="{% url 'core:login' %}" class="user-link">
+                <i class="ph ph-user"></i>
+                <span>Entrar / Cadastrar-se</span>
+            </a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer class="container">
+        <p>&copy; Luiz R. Dererita, Todos os Direitos Reservados - 2025</p>
+    </footer>
+</body>
+</html>
